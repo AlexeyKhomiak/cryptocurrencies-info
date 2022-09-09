@@ -7,12 +7,90 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Trending">
+    
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Page.Resources>
 
-    <Grid>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
         
-        <StackPanel Background="White">
-            <TextBlock Margin="10,10,10,10" Text="Trending"></TextBlock>
-        </StackPanel>
-        
+        <!--<StackPanel  Orientation="Vertical" >-->
+            <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Text="Top-7 trending coins on CoinGecko as searched by users in the last 24 hours"></TextBlock>
+        <!--</StackPanel>-->
+        <ListView x:Name="ListView1" Grid.Row="1" ItemsSource="{Binding CoinItems.Result}">
+                <ListView.View>
+                    <GridView AllowsColumnReorder="False">
+                        <GridViewColumn x:Name="GridViewColumnNum" Header="#">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical" Width="40">
+                                        <TextBlock  FontSize="14" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path=Item.Score}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn x:Name="GridViewColumnImg" Header="Image">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" >
+                                        <Image Source="{Binding Path=Item.Small}" Margin="10" Width="50"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn x:Name="GridViewColumnSymbol" Header="Symbol">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Width="100" Margin="10">
+                                        <TextBlock FontSize="16" Text="{Binding Path=Item.Symbol}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn x:Name="GridViewColumnName" Header="Name">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Width="130" Margin="10">
+                                        <TextBlock Text="{Binding Path=Item.Name}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn x:Name="GridViewColumnPrice" Header="Price BTC">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Width="150" Margin="10">
+                                        <TextBlock Text="{Binding Path=Item.PriceBTC}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn x:Name="GridViewColumnMarketCapRank" Header="Market Cap Rank">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Width="100" Margin="10">
+                                        <TextBlock TextAlignment="Center" Text="{Binding Path=Item.MarketCapRank}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        <DockPanel Grid.Row="2">
+            <StatusBar Name="McSBar" VerticalAlignment="Bottom" Background="LightGray" >
+                <Label Content="API Server status:"></Label>
+                <Label Content="OK" Visibility="{Binding CoinItems.IsSuccessfullyCompleted, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <Label Content="Loading..." Visibility="{Binding CoinItems.IsNotCompleted,Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <Label Content="{Binding CoinItems.ErrorMessage}" Foreground="Red" Visibility="{Binding CoinItems.IsFaulted, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            </StatusBar>
+        </DockPanel>
+
     </Grid>
 </Page>
