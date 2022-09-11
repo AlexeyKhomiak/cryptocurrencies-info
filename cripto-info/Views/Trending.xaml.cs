@@ -1,4 +1,5 @@
-﻿using cripto_info.ViewModels;
+﻿using cripto_info.Models;
+using cripto_info.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,14 @@ namespace cripto_info.Views
         public Trending()
         {
             InitializeComponent();
-            DataContext = new TrandingViewModel();
+            DataContext = new TrandingViewModel("https://api.coingecko.com/api/v3/search/trending");
+        }
+
+        private void TextBlock_MouseLeftButtonUp_1(object sender, MouseButtonEventArgs e)
+        {
+            CoinItem coin  = listTopCoin.SelectedItem as CoinItem;
+
+            NavigationService.Navigate(new Detail(coin.Item.Id));
         }
     }
 }

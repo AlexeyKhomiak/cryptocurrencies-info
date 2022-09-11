@@ -10,15 +10,12 @@ namespace cripto_info.ViewModels
 {
     public class TrandingViewModel
     {
-        public string BaseURL = "https://api.coingecko.com/api/v3";
-        //public NotifyTaskCompletion<ServerStatus> Status { get; private set; }
         public NotifyTaskCompletion<List<CoinItem>> CoinItems { get; private set; }
 
 
-        public TrandingViewModel()
+        public TrandingViewModel(string url)
         {
-            //Status = new NotifyTaskCompletion<ServerStatus>(ApiServiceClient.GetServerStatusAsync(string.Concat(BaseURL + "/ping")));
-            CoinItems = new NotifyTaskCompletion<List<CoinItem>>(ApiServiceClient.GetTrendingCoinsAsync(string.Concat(BaseURL + "/search/trending")));
+            CoinItems = new NotifyTaskCompletion<List<CoinItem>>(ApiServiceClient.GetTrendingCoinsAsync(url));
         }
     }
 }
