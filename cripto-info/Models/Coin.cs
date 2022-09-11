@@ -9,7 +9,7 @@ namespace cripto_info.Models
 {
     public class Coin
     {
-        public string Id { get; set; }
+        public string Id { get; set; } = string.Empty;
         [JsonProperty("coin_id")]
         public int CoinId { get; set; } = 0;
         public string Name { get; set; } = string.Empty;

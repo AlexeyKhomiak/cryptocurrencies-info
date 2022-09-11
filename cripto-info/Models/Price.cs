@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace cripto_info.Models
 {
-    public class CoinItem
+    public class Price
     {
-        public Coin Item { get; set; } = new Coin();
+        public decimal Usd { get; set; } = decimal.Zero;
+
     }
 }

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace cripto_info.Models
 {
-    public class CoinItem
+    public class Image
     {
-        public Coin Item { get; set; } = new Coin();
+        public string Large { get; set; } = string.Empty;
     }
 }

@@ -7,10 +7,303 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Detail">
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Page.Resources>
 
-    <Grid>
-        <StackPanel Background="White">
-            <TextBlock Margin="10,10,10,10" Text="Exchange"></TextBlock>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="0.6*"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel 
+            Orientation="Horizontal" 
+            HorizontalAlignment="Center"
+            Grid.Row="0" 
+            Grid.ColumnSpan="3">
+            <TextBlock
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                FontSize="16" 
+                FontWeight="Bold" 
+                Text="Detail information: "/>
+            <TextBlock 
+                Name ="tbSymbol"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                FontSize="18"
+                FontWeight="Bold"
+                Text="{Binding CoinDetail.Result.Name}"/>
         </StackPanel>
+
+        <Grid 
+            Grid.Row="1" 
+            Background="Gainsboro" 
+            Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Image Source="{Binding Path=CoinDetail.Result.Image.Large}"
+                   Margin="10"/>
+
+            <StackPanel 
+                Orientation="Vertical" 
+                Grid.Column="1"
+                VerticalAlignment="Center">
+                <TextBlock
+                    FontSize="18"
+                    VerticalAlignment="Center" 
+                    FontWeight="Bold"
+                    TextAlignment="Center" 
+                    Text="{Binding Path=CoinDetail.Result.Name}"/>
+                <TextBlock
+                    FontSize="18"
+                    VerticalAlignment="Center" 
+                    TextAlignment="Center" 
+                    Text="{Binding Path=CoinDetail.Result.Symbol}"
+                    Background="White"
+                    Margin="10"/>
+                <StackPanel 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Center">
+                    <TextBlock 
+                        Text="Market Cap Rank #"
+                        FontSize="12"/>
+                    <TextBlock 
+                        FontSize="12"
+                        Text="{Binding Path=CoinDetail.Result.MarketCapRank}">
+                    </TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <Grid 
+            Grid.Row="1" 
+            Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel 
+                Orientation="Vertical" 
+                VerticalAlignment="Center">
+                <StackPanel 
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+                    <TextBlock 
+                        FontSize="20"
+                        VerticalAlignment="Center" 
+                        FontWeight="Bold"
+                        TextAlignment="Center" 
+                        Text="$"
+                        Foreground="Black"/>
+                    <TextBlock 
+                        FontSize="20"
+                        VerticalAlignment="Center" 
+                        FontWeight="Bold"
+                        TextAlignment="Center" 
+                        Text="{Binding Path=CoinDetail.Result.MarketData.CurrentPrice.Usd, StringFormat={}{0:### ##0.00####}}"
+                        Foreground="Black"/>
+                    <StackPanel 
+                        Orientation="Horizontal" 
+                        Margin="10">
+                        <TextBlock
+                            FontSize="18"
+                            FontWeight="Bold"
+                            VerticalAlignment="Center" 
+                            TextAlignment="Center" 
+                            Text="{Binding Path=CoinDetail.Result.MarketData.PriceChangePercentage24h, StringFormat={}{0:#0.00}}"
+                            Foreground="{Binding Path=CoinDetail.Result.MarketData.ColorPrice}">
+                        </TextBlock>
+                        <TextBlock 
+                            FontWeight="Bold"
+                            Text="%"
+                            Foreground="{Binding Path=CoinDetail.Result.MarketData.ColorPrice}"
+                            FontSize="18">                            
+                        </TextBlock>
+                    </StackPanel>
+                </StackPanel>
+                <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text="{Binding Path=CoinDetail.Result.MarketData.CurrentPrice.Usd}"/>
+                    <TextBlock Text=" BTC"/>
+                    <TextBlock Text="" Margin="5"/>
+                </StackPanel>-->
+            </StackPanel>
+            <StackPanel 
+                Grid.Row="1"
+                Orientation="Vertical">
+                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+                    <TextBlock 
+                        Text="Vulume 24h: $"
+                        FontSize="14"
+                        FontWeight="Bold"/>
+                    <TextBlock 
+                        Text="{Binding Path=CoinDetail.Result.MarketData.MarketCap.Usd, StringFormat={}{0:### ### ### ###.0}}"
+                        FontSize="14"/>
+                </StackPanel>
+                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+                    <TextBlock 
+                        Text="Market Cap: $"
+                        FontSize="14"
+                        FontWeight="Bold"/>
+                    <TextBlock 
+                        Text="{Binding Path=CoinDetail.Result.MarketData.TotalVolume.Usd, StringFormat={}{0:### ### ### ###.0}}"
+                        FontSize="14"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <StackPanel 
+            Orientation="Horizontal"
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Center">
+            <TextBlock 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                FontSize="14" 
+                FontWeight="Bold" 
+                Text="{Binding Path=CoinDetail.Result.Name}"/>
+            <TextBlock 
+                Grid.Row="0" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                FontSize="14" 
+                FontWeight="Bold" 
+                Text=" Markets"/>
+        </StackPanel>
+
+        <ListView 
+            x:Name="listMarkets" 
+            Grid.Row="3"
+            Grid.ColumnSpan="2"
+            ItemsSource="{Binding CoinDetail.Result.Tickers}">
+            <ListView.View>
+                <GridView 
+                    AllowsColumnReorder="False">
+                    <GridViewColumn 
+                            x:Name="GridViewColumnNum" 
+                            Header="Name">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel 
+                                    Orientation="Horizontal">
+                                    <TextBlock  
+                                        Width="200"
+                                        FontSize="14"
+                                        FontWeight="Bold"
+                                        TextAlignment="Left" 
+                                        Text="{Binding Path=Market.Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn 
+                        x:Name="GridViewColumnImg" 
+                        Header="Pairs">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel 
+                                    Orientation="Horizontal" >
+                                    <TextBlock 
+                                        TextAlignment="Center"
+                                        TextDecorations="Underline" 
+                                        Foreground="Blue" 
+                                        Cursor="Hand"
+                                        Width="150" MouseLeftButtonUp="TextBlock_MouseLeftButtonUp">
+                                        <TextBlock  
+                                            FontSize="14" 
+                                            VerticalAlignment="Center" 
+                                            TextAlignment="Center" 
+                                            Text="{Binding Path=Base}"/>
+                                        <TextBlock  
+                                            FontSize="14" 
+                                            VerticalAlignment="Center" 
+                                            TextAlignment="Center" 
+                                            Text="/"/>
+                                        <TextBlock  
+                                            FontSize="14" 
+                                            VerticalAlignment="Center" 
+                                            TextAlignment="Center" 
+                                            Text="{Binding Path=Target}"/>
+                                    </TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn 
+                        x:Name="GridViewColumnSymbol" 
+                        Header="Price, $">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel 
+                                    Orientation="Horizontal" 
+                                    Margin="10">
+                                    <TextBlock
+                                        TextAlignment="Right"
+                                        Width="150"
+                                        FontSize="14" 
+                                        Text="{Binding Path=Price, StringFormat={}{0:### ##0.00####}}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn 
+                        x:Name="GridViewColumnName" 
+                        Header="Volume, $">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel 
+                                    Orientation="Horizontal" 
+                                    Margin="10">
+                                    <TextBlock 
+                                        TextAlignment="Right"
+                                        Width="150"
+                                        FontSize="14"
+                                        Text="{Binding Path=Volume, StringFormat={}{0:### ### ### ###.0}}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <DockPanel 
+            Grid.Row="4" 
+            Grid.ColumnSpan="3">
+            <StatusBar 
+                Name="McSBar" 
+                VerticalAlignment="Bottom" 
+                Background="LightGray">
+                <Label 
+                    Content="API Server status:"/>
+                <Label 
+                    Content="OK" 
+                    Visibility="{Binding CoinDetail.IsSuccessfullyCompleted, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <Label 
+                    Content="Loading..." 
+                    Visibility="{Binding CoinDetail.IsNotCompleted,Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <Label 
+                    Content="{Binding CoinDetail.ErrorMessage}" 
+                    Foreground="Red" 
+                    Visibility="{Binding CoinDetail.IsFaulted, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            </StatusBar>
+        </DockPanel>
     </Grid>
 </Page>

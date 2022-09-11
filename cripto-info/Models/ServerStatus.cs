@@ -11,7 +11,7 @@ namespace cripto_info.Models
     public class ServerStatus
     {
         [JsonProperty("gecko_says")]
-        public string Message { get; set; }
+        public string Message { get; set; } = string.Empty;
 
     }
 }

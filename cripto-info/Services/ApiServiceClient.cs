@@ -13,21 +13,6 @@ namespace cripto_info.Services
 {
     public class ApiServiceClient
     {
-        //public static async Task<ServerStatus> GetServerStatusAsync(string url)
-        //{
-        //    ServerStatus serverStatus = null;
-        //    using (HttpClient client = new HttpClient())
-        //    {
-        //        var data = await client.GetAsync(url);
-        //        string jsonResponse = await data.Content.ReadAsStringAsync();
-        //        if (jsonResponse != null)
-        //        {
-        //            serverStatus = JsonConvert.DeserializeObject<ServerStatus>(jsonResponse);
-        //        }
-        //        return serverStatus;
-        //    }
-        //}
-
         public static async Task<List<CoinItem>> GetTrendingCoinsAsync(string url)
         {
             List<CoinItem> coinItems = new List<CoinItem>();
@@ -53,6 +38,38 @@ namespace cripto_info.Services
                 throw new Exception(e.Message);
             }
             return coinItems;
+        }
+
+        public static async Task<CoinDetail> GetCoinDetailAsync(string url)
+        {
+            CoinDetail coinDetail = null;
+            string responseBody = "";
+
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    HttpResponseMessage response = await client.GetAsync(url);
+                    response.EnsureSuccessStatusCode();
+                    responseBody = await response.Content.ReadAsStringAsync();
+                    if (responseBody != null)
+                    {
+                        coinDetail = JsonConvert.DeserializeObject<CoinDetail>(responseBody);
+
+                        if (coinDetail.Symbol != null)
+                        {
+                            coinDetail.Symbol = coinDetail.Symbol.ToUpper();
+                        }
+                        
+                    }
+                    
+                }
+            }
+            catch (HttpRequestException e)
+            {
+                throw new Exception(e.Message);
+            }
+            return coinDetail;
         }
     }
 }
