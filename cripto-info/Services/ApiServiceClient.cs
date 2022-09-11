@@ -59,10 +59,8 @@ namespace cripto_info.Services
                         if (coinDetail.Symbol != null)
                         {
                             coinDetail.Symbol = coinDetail.Symbol.ToUpper();
-                        }
-                        
-                    }
-                    
+                        }                        
+                    }                    
                 }
             }
             catch (HttpRequestException e)
@@ -70,6 +68,36 @@ namespace cripto_info.Services
                 throw new Exception(e.Message);
             }
             return coinDetail;
+        }
+
+        public static async Task<List<CoinSearch>> GetSearchResultAsync(string url)
+        {
+            List<CoinSearch> coinSearches = null;
+            string responseBody = "";
+
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    HttpResponseMessage response = await client.GetAsync(url);
+                    response.EnsureSuccessStatusCode();
+                    responseBody = await response.Content.ReadAsStringAsync();
+                    if (responseBody != null)
+                    {
+                        coinSearches = JsonConvert.DeserializeObject<SearchResult>(responseBody).Coins;
+
+                        if (coinSearches.Count == 0)
+                        {
+                            coinSearches.Add(new CoinSearch { Name = "Not Found" });
+                        }
+                    }
+                }
+            }
+            catch (HttpRequestException e)
+            {
+                throw new Exception(e.Message);
+            }
+            return coinSearches;
         }
     }
 }
