@@ -2,7 +2,6 @@
 using cripto_info.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -20,36 +19,29 @@ using System.Windows.Shapes;
 namespace cripto_info.Views
 {
     /// <summary>
-    /// Interaction logic for Detail.xaml
+    /// Interaction logic for ResultSearch.xaml
     /// </summary>
-    public partial class Detail : Page
+    public partial class ResultSearch : Page
     {
-        public Detail()
+        public ResultSearch()
         {
             InitializeComponent();
         }
-
-        public Detail(string id)
+        
+        public ResultSearch(string textSearch)
         {
             InitializeComponent();
-            DataContext = new DetailViewModel($"https://api.coingecko.com/api/v3/coins/{id}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=true");
-
+            DataContext = new SearchViewModel($"https://api.coingecko.com/api/v3/search?query={textSearch}");
         }
 
         private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            Ticker ticker = listMarkets.SelectedItem as Ticker;
+            CoinSearch coinSearch = listSearchResult.SelectedItem as CoinSearch;
 
-            if (ticker.TradeURL != null)
+            if (coinSearch.Id != null)
             {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = ticker.TradeURL,
-                    UseShellExecute = true
-                });
+                NavigationService.Navigate(new Detail(coinSearch.Id));
             }
-
         }
     }
-
 }

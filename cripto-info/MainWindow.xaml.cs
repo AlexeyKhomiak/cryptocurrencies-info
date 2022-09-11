@@ -37,5 +37,17 @@ namespace cripto_info
         {
             _mainFrame.NavigationService.Navigate(new Trending());
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtSearch.Text == "")
+            {
+                MessageBox.Show("There is no text in the search field.");
+            }
+            else
+            {
+                _mainFrame.NavigationService.Navigate(new ResultSearch(txtSearch.Text));
+            }            
+        }
     }
 }
