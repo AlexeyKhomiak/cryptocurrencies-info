@@ -55,7 +55,7 @@ namespace cripto_info.Services
                     if (responseBody != null)
                     {
                         coinDetail = JsonConvert.DeserializeObject<CoinDetail>(responseBody);
-
+                        
                         if (coinDetail.Symbol != null)
                         {
                             coinDetail.Symbol = coinDetail.Symbol.ToUpper();
@@ -72,7 +72,7 @@ namespace cripto_info.Services
 
         public static async Task<List<CoinSearch>> GetSearchResultAsync(string url)
         {
-            List<CoinSearch> coinSearches = null;
+            List<CoinSearch> coinSearches = new List<CoinSearch>();
             string responseBody = "";
 
             try
@@ -99,5 +99,6 @@ namespace cripto_info.Services
             }
             return coinSearches;
         }
+
     }
 }

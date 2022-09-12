@@ -39,25 +39,14 @@
                         NavigateUri="Trending.xaml" 
                         Click="Hyperlink_Click_1">Top-7</Hyperlink>
                     </TextBlock>
-                    <TextBlock 
-                    HorizontalAlignment="Left" 
-                    Margin="10,10,10,10">
-                    <Hyperlink 
-                        NavigateUri="Exchange.xaml" 
-                        Click="Hyperlink_Click">Currency Converter</Hyperlink>
-                    </TextBlock>
                 </StackPanel>
 
             </StackPanel>
             <StackPanel 
                 DockPanel.Dock="Right"
-                
                 Orientation="Horizontal"
                 HorizontalAlignment="Right"
                 Margin="10">
-                <!--<TextBlock 
-                    Text="Search:" 
-                    VerticalAlignment="Center"/>-->
                 <TextBox
                     x:Name="txtSearch"
                     Width="150"
