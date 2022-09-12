@@ -28,11 +28,6 @@ namespace cripto_info
             _mainFrame.NavigationService.Navigate(new Trending());
         }
 
-        private void Hyperlink_Click(object sender, RoutedEventArgs e)
-        {
-            _mainFrame.NavigationService.Navigate(new Exchange());
-        }
-
         private void Hyperlink_Click_1(object sender, RoutedEventArgs e)
         {
             _mainFrame.NavigationService.Navigate(new Trending());
